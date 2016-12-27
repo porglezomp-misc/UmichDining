@@ -36,7 +36,7 @@ class DiningHall {
     func fetchData(date: Date? = nil, completion: @escaping (DiningHall) -> ()) {
         let queue = DispatchQueue(label: "net.calebjones.fetch-menu")
         queue.async {
-            if let hall = self.blockingFetchData() {
+            if let hall = self.blockingFetchData(date: date) {
                 completion(hall)
             }
         }
@@ -45,11 +45,16 @@ class DiningHall {
     func blockingFetchData(date: Date? = nil) -> DiningHall? {
         guard let name = name.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
             else { return nil }
-        
         var urlString = baseUrl.absoluteString + "?location=\(name)"
         if let date = date {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd"
+            guard let date = dateFormatter.string(from: date).addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+                else {return nil}
+
             urlString += "&date=\(date)"
         }
+        print(urlString)
         guard let url = URL(string: urlString)
             else { return nil }
         guard let data = try? Data(contentsOf: url)
