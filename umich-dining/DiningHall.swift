@@ -8,6 +8,7 @@
 
 import Foundation
 import CoreLocation
+import Contacts
 
 let barbour = DiningHall("Barbour Dining Hall")
 let bursley = DiningHall("Bursley Dining Hall")
@@ -24,6 +25,7 @@ private let baseUrl: URL = URL(string: "http://www.housing.umich.edu/files/helpe
 class DiningHall {
     var name: String
     var menu: Menu? = nil
+    var contact: CNContact? = nil
     
     // TODO: Addresses / lat-lon
     
@@ -31,16 +33,16 @@ class DiningHall {
         self.name = name
     }
 
-    func fetchMenu(date: Date? = nil, completion: @escaping (DiningHall) -> ()) {
+    func fetchData(date: Date? = nil, completion: @escaping (DiningHall) -> ()) {
         let queue = DispatchQueue(label: "net.calebjones.fetch-menu")
         queue.async {
-            if let hall = self.blockingFetchMenu() {
+            if let hall = self.blockingFetchData() {
                 completion(hall)
             }
         }
     }
     
-    func blockingFetchMenu(date: Date? = nil) -> DiningHall? {
+    func blockingFetchData(date: Date? = nil) -> DiningHall? {
         guard let name = name.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
             else { return nil }
         
@@ -59,6 +61,8 @@ class DiningHall {
             else { return nil }
 
         self.name = obj.name
+        self.menu = obj.menu
+        self.contact = obj.contact
         return self
     }
     
