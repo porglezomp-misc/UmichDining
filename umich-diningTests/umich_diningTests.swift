@@ -24,8 +24,12 @@ class umich_diningTests: XCTestCase {
     func testExample() {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
-        if let hall = bursley.blockingFetchData() {
+        let format = DateFormatter()
+        format.dateFormat = "yyyy-MM-dd"
+        let date = format.date(from: "2016-12-20")
+        if let hall = bursley.blockingFetchData(date: date) {
             print("\(hall.menu.meals)")
+            print("\(hall.contact")
         } else {
             print("NONE!")
         }
