@@ -24,7 +24,7 @@ private let baseUrl: URL = URL(string: "http://www.housing.umich.edu/files/helpe
 
 class DiningHall {
     var name: String
-    var menu: Menu? = nil
+    var menu: Menu = Menu()
     var contact: CNContact? = nil
     
     // TODO: Addresses / lat-lon
@@ -59,7 +59,6 @@ class DiningHall {
             else { return nil }
         guard let data = try? Data(contentsOf: url)
             else { return nil }
-        print("\(String(data: data, encoding: .utf8))")
         
         let xml = XMLParser(data: data)
         guard let obj = DiningHallParser().parse(parser: xml)

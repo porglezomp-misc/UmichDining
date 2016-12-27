@@ -26,8 +26,13 @@ class umich_diningTests: XCTestCase {
         // Use XCTAssert and related functions to verify your tests produce the correct results.
         let format = DateFormatter()
         format.dateFormat = "yyyy-MM-dd"
-        let date = format.date(from: "2016/12/20")
-        print(bursley.blockingFetchData(date: date)?.contact)
+        let date = format.date(from: "2016-12-20")
+        if let hall = bursley.blockingFetchData(date: date) {
+            print("\(hall.menu.meals)")
+            print("\(hall.contact)")
+        } else {
+            print("NONE!")
+        }
     }
     
     func testPerformanceExample() {
