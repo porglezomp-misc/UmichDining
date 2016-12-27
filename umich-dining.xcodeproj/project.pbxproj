@@ -10,8 +10,8 @@
 		3C8E7B9B1E12109300F067AD /* umich_dining.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C8E7B911E12109300F067AD /* umich_dining.framework */; };
 		3C8E7BA01E12109300F067AD /* umich_diningTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C8E7B9F1E12109300F067AD /* umich_diningTests.swift */; };
 		3C8E7BA21E12109300F067AD /* umich-dining.h in Headers */ = {isa = PBXBuildFile; fileRef = 3C8E7B941E12109300F067AD /* umich-dining.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		3C8E7BAC1E1210B200F067AD /* DiningHall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C8E7BAB1E1210B200F067AD /* DiningHall.swift */; };
-		3C8E7BB01E12207C00F067AD /* Menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C8E7BAF1E12207C00F067AD /* Menu.swift */; };
+		3C8E7BB21E12C5DA00F067AD /* Menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C8E7BB11E12C5DA00F067AD /* Menu.swift */; };
+		3C8E7BB41E12C5E300F067AD /* DiningHall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C8E7BB31E12C5E300F067AD /* DiningHall.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -31,8 +31,8 @@
 		3C8E7B9A1E12109300F067AD /* umich-diningTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "umich-diningTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3C8E7B9F1E12109300F067AD /* umich_diningTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = umich_diningTests.swift; sourceTree = "<group>"; };
 		3C8E7BA11E12109300F067AD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		3C8E7BAB1E1210B200F067AD /* DiningHall.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiningHall.swift; sourceTree = "<group>"; };
-		3C8E7BAF1E12207C00F067AD /* Menu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Menu.swift; sourceTree = "<group>"; };
+		3C8E7BB11E12C5DA00F067AD /* Menu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Menu.swift; path = Sources/Menu.swift; sourceTree = SOURCE_ROOT; };
+		3C8E7BB31E12C5E300F067AD /* DiningHall.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DiningHall.swift; path = Sources/DiningHall.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,8 +77,8 @@
 			children = (
 				3C8E7B941E12109300F067AD /* umich-dining.h */,
 				3C8E7B951E12109300F067AD /* Info.plist */,
-				3C8E7BAB1E1210B200F067AD /* DiningHall.swift */,
-				3C8E7BAF1E12207C00F067AD /* Menu.swift */,
+				3C8E7BB11E12C5DA00F067AD /* Menu.swift */,
+				3C8E7BB31E12C5E300F067AD /* DiningHall.swift */,
 			);
 			path = "umich-dining";
 			sourceTree = "<group>";
@@ -205,8 +205,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3C8E7BB01E12207C00F067AD /* Menu.swift in Sources */,
-				3C8E7BAC1E1210B200F067AD /* DiningHall.swift in Sources */,
+				3C8E7BB41E12C5E300F067AD /* DiningHall.swift in Sources */,
+				3C8E7BB21E12C5DA00F067AD /* Menu.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

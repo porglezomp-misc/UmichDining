@@ -35,14 +35,14 @@ class DiningHall {
         self.id = id
     }
 
-    func fetchMenu(completion: @escaping (DiningHall) -> ()) {
+    func fetchMenu(date: Date? = nil, completion: @escaping (DiningHall) -> ()) {
         let queue = DispatchQueue(label: "net.calebjones.fetch-menu")
         queue.async {
             completion(self.blockingFetchMenu())
         }
     }
     
-    func blockingFetchMenu() -> DiningHall {
+    func blockingFetchMenu(date: Date? = nil) -> DiningHall {
         // TODO: Unimplemented
         assert(false)
         return self
