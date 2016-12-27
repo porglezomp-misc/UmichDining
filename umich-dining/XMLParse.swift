@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Contacts
 
 class DiningHallListParser: NSObject, XMLParserDelegate {
     var halls: [DiningHall] = []
@@ -27,8 +28,36 @@ class DiningHallListParser: NSObject, XMLParserDelegate {
 
 class DiningHallParser: NSObject, XMLParserDelegate {
     weak var parentParser: DiningHallListParser?
-    var element: DiningHall? = nil
     private var childParser: MenuParser? = nil
+    
+    var element: DiningHall? = nil
+    var state: ParseState = .base
+    var contact: CNMutableContact = CNMutableContact()
+    var address : CNMutablePostalAddress = CNMutablePostalAddress()
+    
+    enum ParseState {
+        enum Address {
+            case base
+            case address1
+            case address2
+            case city
+            case state
+            case postalcode
+        }
+        
+        enum Contact {
+            case base
+            case phone
+            case email
+        }
+        
+        case base
+        case hours
+        case type
+        case name
+        case contact(ParseState.Contact)
+        case address(ParseState.Address)
+    }
     
     override init() {
         self.parentParser = nil
@@ -41,28 +70,104 @@ class DiningHallParser: NSObject, XMLParserDelegate {
     }
     
     func parse(parser: XMLParser) -> DiningHall? {
-        element = nil
         parser.delegate = self
         parser.parse()
         return element
     }
     
     func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String] = [:]) {
-        if elementName == "menu" {
+        switch elementName {
+        case "menu":
             childParser = MenuParser(parent: self)
             parser.delegate = childParser
+        case "hours":
+            state = .hours
+        case "address":
+            state = .address(.base)
+        case "address1":
+            state = .address(.address1)
+        case "address2":
+            state = .address(.address2)
+        case "city":
+            state = .address(.city)
+        case "state":
+            state = .address(.state)
+        case "postalcode":
+            state = .address(.postalcode)
+        case "type":
+            state = .type
+        case "name":
+            state = .name
+        case "contact":
+            state = .contact(.base)
+        case "phone":
+            state = .contact(.phone)
+        case "email":
+            state = .contact(.email)
+        default:
+            print(elementName)
         }
     }
     
+    func parser(_ parser: XMLParser, foundCDATA CDATABlock: Data) {
+        switch state {
+        case .hours:
+            let str = String(data: CDATABlock, encoding: .utf8) ?? ""
+            contact.note += str + "\n"
+        default:
+            print(String(data: CDATABlock, encoding: .utf8) ?? "")
+        }
+    }
+    
+    func parser(_ parser: XMLParser, foundCharacters string: String) {
+        switch state {
+        case .name:
+            contact.organizationName = string;
+            element = DiningHall(string)
+        case .address(.address1):
+            address.street = string + "\n"
+        case .address(.address2):
+            address.street += string
+        case .address(.city):
+            address.city = string
+        case .address(.state):
+            address.state = string
+        case .address(.postalcode):
+            address.postalCode = string
+        case .contact(.phone):
+            contact.phoneNumbers = [CNLabeledValue(
+                                        label: CNLabelPhoneNumberMain,
+                                        value:CNPhoneNumber(stringValue: string))]
+        case .contact(.email):
+            contact.emailAddresses = [CNLabeledValue(label: CNLabelWork, value:string as NSString)]
+        default:
+            print(string)
+        }
+    }
+
     func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
-        if elementName == "dininghall" {
+        switch elementName {
+        case "dininghall":
             guard let element = element
                 else { return }
+            
+            element.contact = contact
             
             if let parent = parentParser {
                 parser.delegate = parent
                 parent.halls.append(element)
             }
+        case "address":
+            contact.postalAddresses = [CNLabeledValue(label:CNLabelWork, value:address)]
+            state = .base
+        case "hours", "type", "name", "contact":
+            state = .base
+        case "phone", "email":
+            state = .contact(.base)
+        case "address1", "address2", "city", "state", "postalcode":
+            state = .address(.base)
+        default:
+            print(elementName)
         }
     }
 }
@@ -134,12 +239,13 @@ private class CourseParser: NSObject, XMLParserDelegate {
     func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String] = [:]) {
         switch state {
         case .base:
-            if elementName == "name" {
+            switch elementName {
+            case "name":
                 state = .name
-            } else if elementName == "menuitem" {
+            case "menuitem":
                 childParser = MenuItemParser(parent: self)
                 parser.delegate = childParser
-            } else {
+            default:
                 print(elementName)
             }
         case .name:
@@ -148,7 +254,6 @@ private class CourseParser: NSObject, XMLParserDelegate {
     }
     
     func parser(_ parser: XMLParser, foundCharacters string: String) {
-        print(string)
         if state == .name {
             courseName = string
         }

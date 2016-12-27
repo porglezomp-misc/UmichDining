@@ -78,6 +78,9 @@
 			isa = PBXGroup;
 			children = (
 				3C8E7B941E12109300F067AD /* umich-dining.h */,
+				9DF3DC481E12E71E0067B246 /* DiningHall.swift */,
+				9DF3DC491E12E71E0067B246 /* Menu.swift */,
+				9DF3DC4A1E12E71E0067B246 /* XMLParse.swift */,
 				3C8E7B951E12109300F067AD /* Info.plist */,
 				9DF3DC4E1E12E8230067B246 /* DiningHall.swift */,
 				9DF3DC4F1E12E8230067B246 /* Menu.swift */,
