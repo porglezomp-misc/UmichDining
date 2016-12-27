@@ -26,8 +26,9 @@ class DiningHallListParser: NSObject, XMLParserDelegate {
 }
 
 class DiningHallParser: NSObject, XMLParserDelegate {
-    let parentParser: DiningHallListParser?
+    weak var parentParser: DiningHallListParser?
     var element: DiningHall? = nil
+    private var childParser: MenuParser? = nil
     
     override init() {
         self.parentParser = nil
@@ -46,6 +47,13 @@ class DiningHallParser: NSObject, XMLParserDelegate {
         return element
     }
     
+    func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String] = [:]) {
+        if elementName == "menu" {
+            childParser = MenuParser(parent: self)
+            parser.delegate = childParser
+        }
+    }
+    
     func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
         if elementName == "dininghall" {
             guard let element = element
@@ -55,6 +63,125 @@ class DiningHallParser: NSObject, XMLParserDelegate {
                 parser.delegate = parent
                 parent.halls.append(element)
             }
+        }
+    }
+}
+
+private class MenuParser: NSObject, XMLParserDelegate {
+    weak var parentParser: DiningHallParser!
+    var meals: [Meal] = []
+    private var childParser: MealParser? = nil
+    
+    init(parent: DiningHallParser) {
+        self.parentParser = parent
+    }
+    
+    func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String] = [:]) {
+        if elementName == "meal" {
+            childParser = MealParser(parent: self)
+            parser.delegate = childParser
+        }
+    }
+    
+    func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
+        if elementName == "menu" {
+            parser.delegate = parentParser
+            parentParser.element?.menu?.meals = meals
+        }
+    }
+}
+
+private class MealParser: NSObject, XMLParserDelegate {
+    weak var parentParser: MenuParser!
+    var courses: [String: [MenuItem]] = [:]
+    private var childParser: CourseParser? = nil
+    
+    init(parent: MenuParser) {
+        self.parentParser = parent
+    }
+    
+    func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String] = [:]) {
+        if elementName == "course" {
+            childParser = CourseParser(parent: self)
+            parser.delegate = childParser
+        }
+    }
+    
+    func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
+        if elementName == "meal" {
+            parser.delegate = parentParser
+            parentParser.meals.append(Meal(courses: courses))
+        }
+    }
+}
+
+private class CourseParser: NSObject, XMLParserDelegate {
+    weak var parentParser: MealParser!
+    var courseName: String? = nil
+    var menuItems: [MenuItem] = []
+    var state: ParseState = .base
+    private var childParser: MenuItemParser? = nil
+    
+    enum ParseState {
+        case base
+        case name
+    }
+    
+    init(parent: MealParser) {
+        self.parentParser = parent
+    }
+    
+    func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String] = [:]) {
+        switch state {
+        case .base:
+            if elementName == "name" {
+                state = .name
+            } else if elementName == "menuitem" {
+                childParser = MenuItemParser(parent: self)
+                parser.delegate = childParser
+            } else {
+                print(elementName)
+            }
+        case .name:
+            print(elementName)
+        }
+    }
+    
+    func parser(_ parser: XMLParser, foundCharacters string: String) {
+        print(string)
+        if state == .name {
+            courseName = string
+        }
+    }
+    
+    func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
+        switch elementName {
+        case "name":
+            state = .base
+        case "course":
+            parser.delegate = parentParser
+            guard let courseName = courseName
+                else { return }
+            parentParser.courses[courseName] = menuItems
+        default: break
+        }
+    }
+}
+
+private class MenuItemParser: NSObject, XMLParserDelegate {
+    weak var parentParser: CourseParser!
+    var item: MenuItem? = nil
+    
+    init(parent: CourseParser) {
+        self.parentParser = parent
+    }
+    
+    func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
+        if elementName == "menuitem" {
+            parser.delegate = parentParser
+            guard let item = item
+                else { return }
+            parentParser.menuItems.append(item)
         }
     }
 }

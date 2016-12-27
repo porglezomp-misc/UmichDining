@@ -9,15 +9,15 @@
 import Foundation
 import CoreLocation
 
-let Barbour = DiningHall("Barbour Dining Hall")
-let Bursley = DiningHall("Bursley Dining Hall")
-let EastQuad = DiningHall("East Quad Dining Hall")
-let MosherJordan = DiningHall("Mosher Jordan Dining Hall")
-let Markley = DiningHall("Markley Dining Hall")
-let NorthQuad = DiningHall("North Quad Dining Hall")
-let SouthQuad = DiningHall("South Quad Dining Hall")
-let Twigs = DiningHall("Twigs at Oxford")
-let WestQuad = DiningHall("West Quad Dining Hall")
+let barbour = DiningHall("Barbour Dining Hall")
+let bursley = DiningHall("Bursley Dining Hall")
+let eastQuad = DiningHall("East Quad Dining Hall")
+let mosherJordan = DiningHall("Mosher Jordan Dining Hall")
+let markley = DiningHall("Markley Dining Hall")
+let northQuad = DiningHall("North Quad Dining Hall")
+let southQuad = DiningHall("South Quad Dining Hall")
+let twigs = DiningHall("Twigs at Oxford")
+let westQuad = DiningHall("West Quad Dining Hall")
 
 private let baseUrl: URL = URL(string: "http://www.housing.umich.edu/files/helper_files/js/menu2xml.php")!
 
@@ -44,19 +44,20 @@ class DiningHall {
         guard let name = name.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
             else { return nil }
         
-        var urlString = baseUrl.absoluteString + "?=\(name)"
+        var urlString = baseUrl.absoluteString + "?location=\(name)"
         if let date = date {
             urlString += "&date=\(date)"
         }
         guard let url = URL(string: urlString)
             else { return nil }
-        
-        guard let xml = XMLParser(contentsOf: url)
+        guard let data = try? Data(contentsOf: url)
             else { return nil }
         
-        if let obj = DiningHallParser().parse(parser: xml) {
-            self.name = obj.name
-        }
+        let xml = XMLParser(data: data)
+        guard let obj = DiningHallParser().parse(parser: xml)
+            else { return nil }
+
+        self.name = obj.name
         return self
     }
     
@@ -70,8 +71,9 @@ class DiningHall {
     }
     
     static func blockingFetchDiningHalls() -> [DiningHall]? {
-        guard let xml = XMLParser(contentsOf: baseUrl)
+        guard let data = try? Data(contentsOf: baseUrl)
             else { return nil }
+        let xml = XMLParser(data: data)
         return DiningHallListParser().parse(parser: xml)
     }
 }
