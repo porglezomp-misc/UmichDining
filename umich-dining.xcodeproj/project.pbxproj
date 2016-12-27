@@ -7,9 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3C8E7B9B1E12109300F067AD /* umich-dining.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C8E7B911E12109300F067AD /* umich-dining.framework */; };
+		3C8E7B9B1E12109300F067AD /* umich_dining.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C8E7B911E12109300F067AD /* umich_dining.framework */; };
 		3C8E7BA01E12109300F067AD /* umich_diningTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C8E7B9F1E12109300F067AD /* umich_diningTests.swift */; };
 		3C8E7BA21E12109300F067AD /* umich-dining.h in Headers */ = {isa = PBXBuildFile; fileRef = 3C8E7B941E12109300F067AD /* umich-dining.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3C8E7BAC1E1210B200F067AD /* DiningHall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C8E7BAB1E1210B200F067AD /* DiningHall.swift */; };
+		3C8E7BB01E12207C00F067AD /* Menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C8E7BAF1E12207C00F067AD /* Menu.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -23,12 +25,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		3C8E7B911E12109300F067AD /* umich-dining.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = "umich-dining.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		3C8E7B911E12109300F067AD /* umich_dining.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = umich_dining.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3C8E7B941E12109300F067AD /* umich-dining.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "umich-dining.h"; sourceTree = "<group>"; };
 		3C8E7B951E12109300F067AD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3C8E7B9A1E12109300F067AD /* umich-diningTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "umich-diningTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3C8E7B9F1E12109300F067AD /* umich_diningTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = umich_diningTests.swift; sourceTree = "<group>"; };
 		3C8E7BA11E12109300F067AD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3C8E7BAB1E1210B200F067AD /* DiningHall.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiningHall.swift; sourceTree = "<group>"; };
+		3C8E7BAF1E12207C00F067AD /* Menu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Menu.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -43,7 +47,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3C8E7B9B1E12109300F067AD /* umich-dining.framework in Frameworks */,
+				3C8E7B9B1E12109300F067AD /* umich_dining.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -62,7 +66,7 @@
 		3C8E7B921E12109300F067AD /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				3C8E7B911E12109300F067AD /* umich-dining.framework */,
+				3C8E7B911E12109300F067AD /* umich_dining.framework */,
 				3C8E7B9A1E12109300F067AD /* umich-diningTests.xctest */,
 			);
 			name = Products;
@@ -73,6 +77,8 @@
 			children = (
 				3C8E7B941E12109300F067AD /* umich-dining.h */,
 				3C8E7B951E12109300F067AD /* Info.plist */,
+				3C8E7BAB1E1210B200F067AD /* DiningHall.swift */,
+				3C8E7BAF1E12207C00F067AD /* Menu.swift */,
 			);
 			path = "umich-dining";
 			sourceTree = "<group>";
@@ -115,7 +121,7 @@
 			);
 			name = "umich-dining";
 			productName = "umich-dining";
-			productReference = 3C8E7B911E12109300F067AD /* umich-dining.framework */;
+			productReference = 3C8E7B911E12109300F067AD /* umich_dining.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		3C8E7B991E12109300F067AD /* umich-diningTests */ = {
@@ -149,6 +155,7 @@
 					3C8E7B901E12109300F067AD = {
 						CreatedOnToolsVersion = 8.1;
 						DevelopmentTeam = YAQK386STA;
+						LastSwiftMigration = 0810;
 						ProvisioningStyle = Automatic;
 					};
 					3C8E7B991E12109300F067AD = {
@@ -198,6 +205,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3C8E7BB01E12207C00F067AD /* Menu.swift in Sources */,
+				3C8E7BAC1E1210B200F067AD /* DiningHall.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -322,6 +331,7 @@
 		3C8E7BA61E12109300F067AD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = YAQK386STA;
@@ -332,8 +342,9 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "net.calebjones.umich-dining";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = umich_dining;
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -341,6 +352,7 @@
 		3C8E7BA71E12109300F067AD /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = YAQK386STA;
@@ -351,7 +363,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "net.calebjones.umich-dining";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = umich_dining;
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 3.0;
 			};
@@ -360,6 +372,7 @@
 		3C8E7BA91E12109300F067AD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				DEVELOPMENT_TEAM = YAQK386STA;
 				INFOPLIST_FILE = "umich-diningTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -372,6 +385,7 @@
 		3C8E7BAA1E12109300F067AD /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				DEVELOPMENT_TEAM = YAQK386STA;
 				INFOPLIST_FILE = "umich-diningTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
