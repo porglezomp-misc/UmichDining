@@ -25,11 +25,10 @@ class umich_diningTests: XCTestCase {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
         if let hall = bursley.blockingFetchData() {
-            print(hall)
+            print("\(hall.menu.meals)")
         } else {
             print("NONE!")
         }
-        print(bursley.blockingFetchData()?.contact)
     }
     
     func testPerformanceExample() {

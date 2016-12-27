@@ -104,8 +104,7 @@ class DiningHallParser: NSObject, XMLParserDelegate {
             state = .contact(.phone)
         case "email":
             state = .contact(.email)
-        default:
-            print(elementName)
+        default: break
         }
     }
     
@@ -114,8 +113,7 @@ class DiningHallParser: NSObject, XMLParserDelegate {
         case .hours:
             let str = String(data: CDATABlock, encoding: .utf8) ?? ""
             contact.note += str + "\n"
-        default:
-            print(String(data: CDATABlock, encoding: .utf8) ?? "")
+        default: break
         }
     }
     
@@ -140,8 +138,7 @@ class DiningHallParser: NSObject, XMLParserDelegate {
                                         value:CNPhoneNumber(stringValue: string))]
         case .contact(.email):
             contact.emailAddresses = [CNLabeledValue(label: CNLabelWork, value:string as NSString)]
-        default:
-            print(string)
+        default: break
         }
     }
 
@@ -166,19 +163,19 @@ class DiningHallParser: NSObject, XMLParserDelegate {
             state = .contact(.base)
         case "address1", "address2", "city", "state", "postalcode":
             state = .address(.base)
-        default:
-            print(elementName)
+        default: break
         }
     }
 }
 
 private class MenuParser: NSObject, XMLParserDelegate {
     weak var parentParser: DiningHallParser!
-    var meals: [Meal] = []
     private var childParser: MealParser? = nil
     
+    var meals: [Meal] = []
+    
     init(parent: DiningHallParser) {
-        self.parentParser = parent
+        parentParser = parent
     }
     
     func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String] = [:]) {
@@ -191,15 +188,16 @@ private class MenuParser: NSObject, XMLParserDelegate {
     func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
         if elementName == "menu" {
             parser.delegate = parentParser
-            parentParser.element?.menu?.meals = meals
+            parentParser.element?.menu.meals = meals
         }
     }
 }
 
 private class MealParser: NSObject, XMLParserDelegate {
     weak var parentParser: MenuParser!
-    var courses: [String: [MenuItem]] = [:]
     private var childParser: CourseParser? = nil
+    
+    var courses: [String: [MenuItem]] = [:]
     
     init(parent: MenuParser) {
         self.parentParser = parent
@@ -222,10 +220,11 @@ private class MealParser: NSObject, XMLParserDelegate {
 
 private class CourseParser: NSObject, XMLParserDelegate {
     weak var parentParser: MealParser!
+    private var childParser: MenuItemParser? = nil
+    
     var courseName: String? = nil
     var menuItems: [MenuItem] = []
     var state: ParseState = .base
-    private var childParser: MenuItemParser? = nil
     
     enum ParseState {
         case base
@@ -245,11 +244,9 @@ private class CourseParser: NSObject, XMLParserDelegate {
             case "menuitem":
                 childParser = MenuItemParser(parent: self)
                 parser.delegate = childParser
-            default:
-                print(elementName)
+            default: break
             }
-        case .name:
-            print(elementName)
+        case .name: break
         }
     }
     
@@ -276,9 +273,20 @@ private class CourseParser: NSObject, XMLParserDelegate {
 private class MenuItemParser: NSObject, XMLParserDelegate {
     weak var parentParser: CourseParser!
     var item: MenuItem? = nil
+    var previousTag: String = ""
     
     init(parent: CourseParser) {
         self.parentParser = parent
+    }
+    
+    func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String] = [:]) {
+        previousTag = elementName
+    }
+    
+    func parser(_ parser: XMLParser, foundCDATA CDATABlock: Data) {
+        guard let name = String(data: CDATABlock, encoding: .utf8)
+            else { return }
+        item = MenuItem(name: name)
     }
     
     func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
