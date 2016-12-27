@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "3C8E7B901E12109300F067AD"
-               BuildableName = "umich-dining.framework"
+               BuildableName = "umich_dining.framework"
                BlueprintName = "umich-dining"
                ReferencedContainer = "container:umich-dining.xcodeproj">
             </BuildableReference>
@@ -43,7 +43,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "3C8E7B901E12109300F067AD"
-            BuildableName = "umich-dining.framework"
+            BuildableName = "umich_dining.framework"
             BlueprintName = "umich-dining"
             ReferencedContainer = "container:umich-dining.xcodeproj">
          </BuildableReference>
@@ -65,7 +65,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "3C8E7B901E12109300F067AD"
-            BuildableName = "umich-dining.framework"
+            BuildableName = "umich_dining.framework"
             BlueprintName = "umich-dining"
             ReferencedContainer = "container:umich-dining.xcodeproj">
          </BuildableReference>
@@ -83,7 +83,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "3C8E7B901E12109300F067AD"
-            BuildableName = "umich-dining.framework"
+            BuildableName = "umich_dining.framework"
             BlueprintName = "umich-dining"
             ReferencedContainer = "container:umich-dining.xcodeproj">
          </BuildableReference>

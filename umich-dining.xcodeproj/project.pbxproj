@@ -12,6 +12,7 @@
 		3C8E7BA21E12109300F067AD /* umich-dining.h in Headers */ = {isa = PBXBuildFile; fileRef = 3C8E7B941E12109300F067AD /* umich-dining.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3C8E7BB21E12C5DA00F067AD /* Menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C8E7BB11E12C5DA00F067AD /* Menu.swift */; };
 		3C8E7BB41E12C5E300F067AD /* DiningHall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C8E7BB31E12C5E300F067AD /* DiningHall.swift */; };
+		3C8E7BB71E12D1FD00F067AD /* XMLParse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C8E7BB61E12D1FD00F067AD /* XMLParse.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -33,6 +34,7 @@
 		3C8E7BA11E12109300F067AD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3C8E7BB11E12C5DA00F067AD /* Menu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Menu.swift; path = Sources/Menu.swift; sourceTree = SOURCE_ROOT; };
 		3C8E7BB31E12C5E300F067AD /* DiningHall.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DiningHall.swift; path = Sources/DiningHall.swift; sourceTree = SOURCE_ROOT; };
+		3C8E7BB61E12D1FD00F067AD /* XMLParse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = XMLParse.swift; path = Sources/XMLParse.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +81,7 @@
 				3C8E7B951E12109300F067AD /* Info.plist */,
 				3C8E7BB11E12C5DA00F067AD /* Menu.swift */,
 				3C8E7BB31E12C5E300F067AD /* DiningHall.swift */,
+				3C8E7BB61E12D1FD00F067AD /* XMLParse.swift */,
 			);
 			path = "umich-dining";
 			sourceTree = "<group>";
@@ -205,6 +208,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3C8E7BB71E12D1FD00F067AD /* XMLParse.swift in Sources */,
 				3C8E7BB41E12C5E300F067AD /* DiningHall.swift in Sources */,
 				3C8E7BB21E12C5DA00F067AD /* Menu.swift in Sources */,
 			);
