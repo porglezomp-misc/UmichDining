@@ -8,11 +8,15 @@
 
 import Foundation
 
-class Menu {
+class Menu: CustomDebugStringConvertible {
     var meals: [Meal] = []
+    
+    public var debugDescription: String {
+        return "Menu(meals: \(meals.debugDescription))"
+    }
 }
 
-class Meal {
+class Meal: CustomDebugStringConvertible {
     var items: [MenuItem] = []
     var courses: [String: [MenuItem]] = [:]
     
@@ -20,10 +24,14 @@ class Meal {
         self.courses = courses
         self.items = courses.flatMap { $0.value }
     }
+    
+    public var debugDescription: String {
+        return "Meal(items: \(items.debugDescription), courses: \(courses.debugDescription))"
+    }
 }
 
 // TODO: Support multiple courses?
-public class MenuItem {
+public class MenuItem: CustomDebugStringConvertible {
     var name: String
     // TODO: Traits
     // TODO: Allergens
@@ -33,5 +41,9 @@ public class MenuItem {
     
     init(name: String) {
         self.name = name
+    }
+    
+    public var debugDescription: String {
+        return "MenuItem(name: \(name), nutritionInfo: \(nutritionInfo.debugDescription))"
     }
 }

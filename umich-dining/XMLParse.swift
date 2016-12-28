@@ -274,6 +274,8 @@ private class MenuItemParser: NSObject, XMLParserDelegate {
     weak var parentParser: CourseParser!
     var item: MenuItem? = nil
     var previousTag: String = ""
+    var inNutrition: Bool = false
+    var nutrition: [String: Measurement<Unit>] = [:]
     
     init(parent: CourseParser) {
         self.parentParser = parent
@@ -281,20 +283,81 @@ private class MenuItemParser: NSObject, XMLParserDelegate {
     
     func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String] = [:]) {
         previousTag = elementName
+        if elementName == "nutrition" { inNutrition = true }
     }
     
     func parser(_ parser: XMLParser, foundCDATA CDATABlock: Data) {
-        guard let name = String(data: CDATABlock, encoding: .utf8)
-            else { return }
-        item = MenuItem(name: name)
+        if previousTag == "name" {
+            guard let name = String(data: CDATABlock, encoding: .utf8)
+                else { return }
+            item = MenuItem(name: name.trimmingCharacters(in: .whitespacesAndNewlines))
+        }
+    }
+    
+    func parser(_ parser: XMLParser, foundCharacters string: String) {
+        if string.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+            return
+        }
+        
+        if inNutrition {
+            let value: Double?
+            let unit: Unit
+            if string.contains("gm") {
+                value = Double(string.replacingOccurrences(of: "gm", with: ""))
+                unit = UnitMass.grams
+            } else if string.contains("mg") {
+                value = Double(string.replacingOccurrences(of: "mg", with: ""))
+                unit = UnitMass.milligrams
+            } else if string.contains("mcg") {
+                value = Double(string.replacingOccurrences(of: "mcg", with: ""))
+                unit = UnitMass.micrograms
+            } else if string.contains("iu") {
+                // From http://www.viridian-nutrition.com/blog/nutrition-news-and-views/what-does-an-iu-measure-in-vitamins
+                // The IU is an International Unit, usually used to measure fat soluble vitamins including Vitamin A, D and E.
+                // The conversion of IU to mg varies depending on the nutrient.
+                // VITAMIN A: One milligram of beta carotene = 1667IU of Vitamin A activity.
+                // VITAMIN E: One milligram of Vitamin E = approx 1.21 to 1.49IU (depending on the carrier).
+                // 400IU of d-alpha tocopherol = 268mg.
+                // VITAMIN D: One microgram of Vitamin D = 40IU.
+                switch previousTag {
+                case "vtaiu":
+                    value = Double(string.replacingOccurrences(of: "iu", with: ""))
+                    unit = UnitMass(symbol: "iu", converter: UnitConverterLinear(coefficient: 0.000001 / 1667))
+                default:
+                    print(previousTag)
+                    value = nil
+                    unit = Unit()
+                }
+            } else if string.contains("kcal") {
+                value = Double(string.replacingOccurrences(of: "kcal", with: ""))
+                unit = UnitEnergy.kilocalories
+            } else if previousTag.contains("_p") {
+                value = Double(string)
+                unit = Unit(symbol: "%")
+            } else {
+                value = Double(string)
+                unit = Unit()
+            }
+            
+            if let value = value {
+                nutrition[previousTag] = Measurement(value: value, unit: unit)
+            } else {
+                print(string)
+            }
+        }
     }
     
     func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
-        if elementName == "menuitem" {
+        switch elementName {
+        case "menuitem":
             parser.delegate = parentParser
             guard let item = item
                 else { return }
+            item.nutritionInfo = nutrition
             parentParser.menuItems.append(item)
+        case "nutrition":
+            inNutrition = false
+        default: break
         }
     }
 }
