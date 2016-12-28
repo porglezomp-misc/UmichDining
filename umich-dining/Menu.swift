@@ -20,6 +20,7 @@ class Meal: CustomDebugStringConvertible {
     var name: String
     var items: [MenuItem] = []
     var courses: [String: [MenuItem]] = [:]
+    var notice: String? = nil
     
     init(name: String, courses: [String: [MenuItem]]) {
         self.name = name
@@ -28,7 +29,7 @@ class Meal: CustomDebugStringConvertible {
     }
     
     public var debugDescription: String {
-        return "Meal(name: \(name), items: \(items.debugDescription), courses: \(courses.debugDescription))"
+        return "Meal(name: \(name.debugDescription), items: \(items.debugDescription), courses: \(courses.debugDescription), notice: \(notice.debugDescription))"
     }
 }
 
@@ -46,6 +47,6 @@ public class MenuItem: CustomDebugStringConvertible {
     }
     
     public var debugDescription: String {
-        return "MenuItem(name: \(name), traits: \(traits.debugDescription), allergens: \(allergens.debugDescription), nutritionInfo: \(nutritionInfo.debugDescription))"
+        return "MenuItem(name: \(name.debugDescription), traits: \(traits.debugDescription), allergens: \(allergens.debugDescription), nutritionInfo: \(nutritionInfo.debugDescription))"
     }
 }

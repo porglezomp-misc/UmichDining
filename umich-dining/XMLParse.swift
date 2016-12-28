@@ -226,7 +226,16 @@ private class MealParser: NSObject, XMLParserDelegate {
             parser.delegate = parentParser
             guard let name = name
                 else { return }
-            parentParser.meals.append(Meal(name: name, courses: courses))
+            let notice: String?
+            if let noticeItems = courses["notice"] {
+                notice = noticeItems.first?.name
+            } else {
+                notice = nil
+            }
+            self.courses.removeValue(forKey: "notice")
+            let meal = Meal(name: name, courses: courses)
+            meal.notice = notice
+            parentParser.meals.append(meal)
         }
     }
 }
