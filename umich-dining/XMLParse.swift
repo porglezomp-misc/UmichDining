@@ -197,23 +197,36 @@ private class MealParser: NSObject, XMLParserDelegate {
     weak var parentParser: MenuParser!
     private var childParser: CourseParser? = nil
     
+    var name: String? = nil
     var courses: [String: [MenuItem]] = [:]
+    var previousTag: String = ""
     
     init(parent: MenuParser) {
         self.parentParser = parent
     }
     
     func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String] = [:]) {
+        previousTag = elementName
         if elementName == "course" {
             childParser = CourseParser(parent: self)
             parser.delegate = childParser
         }
     }
     
+    func parser(_ parser: XMLParser, foundCDATA CDATABlock: Data) {
+        if previousTag == "name" {
+            guard let name = String(data: CDATABlock, encoding: .utf8)
+                else { return }
+            self.name = name
+        }
+    }
+    
     func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
         if elementName == "meal" {
             parser.delegate = parentParser
-            parentParser.meals.append(Meal(courses: courses))
+            guard let name = name
+                else { return }
+            parentParser.meals.append(Meal(name: name, courses: courses))
         }
     }
 }
@@ -274,8 +287,10 @@ private class MenuItemParser: NSObject, XMLParserDelegate {
     weak var parentParser: CourseParser!
     var item: MenuItem? = nil
     var previousTag: String = ""
-    var inNutrition: Bool = false
+    var handling: String = ""
     var nutrition: [String: Measurement<Unit>] = [:]
+    var traits: [String] = []
+    var allergens: [String] = []
     
     init(parent: CourseParser) {
         self.parentParser = parent
@@ -283,7 +298,9 @@ private class MenuItemParser: NSObject, XMLParserDelegate {
     
     func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String] = [:]) {
         previousTag = elementName
-        if elementName == "nutrition" { inNutrition = true }
+        if ["nutrition", "allergens", "trait"].contains(elementName) {
+            handling = elementName
+        }
     }
     
     func parser(_ parser: XMLParser, foundCDATA CDATABlock: Data) {
@@ -299,7 +316,12 @@ private class MenuItemParser: NSObject, XMLParserDelegate {
             return
         }
         
-        if inNutrition {
+        switch handling {
+        case "trait":
+            traits.append(string)
+        case "allergens":
+            allergens.append(string)
+        case "nutrition":
             let value: Double?
             let unit: Unit
             if string.contains("gm") {
@@ -344,6 +366,7 @@ private class MenuItemParser: NSObject, XMLParserDelegate {
             } else {
                 print(string)
             }
+        default: break
         }
     }
     
@@ -354,9 +377,11 @@ private class MenuItemParser: NSObject, XMLParserDelegate {
             guard let item = item
                 else { return }
             item.nutritionInfo = nutrition
+            item.allergens = allergens
+            item.traits = traits
             parentParser.menuItems.append(item)
-        case "nutrition":
-            inNutrition = false
+        case "nutrition", "allergens", "trait":
+            handling = ""
         default: break
         }
     }

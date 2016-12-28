@@ -17,24 +17,26 @@ class Menu: CustomDebugStringConvertible {
 }
 
 class Meal: CustomDebugStringConvertible {
+    var name: String
     var items: [MenuItem] = []
     var courses: [String: [MenuItem]] = [:]
     
-    init(courses: [String: [MenuItem]]) {
+    init(name: String, courses: [String: [MenuItem]]) {
+        self.name = name
         self.courses = courses
         self.items = courses.flatMap { $0.value }
     }
     
     public var debugDescription: String {
-        return "Meal(items: \(items.debugDescription), courses: \(courses.debugDescription))"
+        return "Meal(name: \(name), items: \(items.debugDescription), courses: \(courses.debugDescription))"
     }
 }
 
 // TODO: Support multiple courses?
 public class MenuItem: CustomDebugStringConvertible {
     var name: String
-    // TODO: Traits
-    // TODO: Allergens
+    var traits: [String] = []
+    var allergens: [String] = []
     // TODO: Serving size
     // TODO: What is portion size???
     var nutritionInfo: [String: Measurement] = [:]
@@ -44,6 +46,6 @@ public class MenuItem: CustomDebugStringConvertible {
     }
     
     public var debugDescription: String {
-        return "MenuItem(name: \(name), nutritionInfo: \(nutritionInfo.debugDescription))"
+        return "MenuItem(name: \(name), traits: \(traits.debugDescription), allergens: \(allergens.debugDescription), nutritionInfo: \(nutritionInfo.debugDescription))"
     }
 }
