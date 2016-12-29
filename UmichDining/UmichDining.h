@@ -1,5 +1,5 @@
 //
-//  umich-dining.h
+//  UmichDining.h
 //  UmichDining
 //
 //  Created by Caleb Jones on 12/26/16.
@@ -14,6 +14,6 @@ FOUNDATION_EXPORT double UmichDiningVersionNumber;
 //! Project version string for umich-dining.
 FOUNDATION_EXPORT const unsigned char UmichDiningVersionString[];
 
-// In this header, you should import all the public headers of your framework using statements like #import <umich_dining/PublicHeader.h>
+// In this header, you should import all the public headers of your framework using statements like #import <UmichDining/PublicHeader.h>
 
 
