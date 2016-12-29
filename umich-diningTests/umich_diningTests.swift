@@ -27,7 +27,7 @@ class umich_diningTests: XCTestCase {
         let format = DateFormatter()
         format.dateFormat = "yyyy-MM-dd"
         let date = format.date(from: "2016-12-20")
-        if let hall = bursley.blockingFetchData(date: date) {
+        if let hall = DiningHalls.bursley.blockingFetchData(date: date) {
             debugPrint(hall)
 //            debugPrint(hall.contact)
         } else {

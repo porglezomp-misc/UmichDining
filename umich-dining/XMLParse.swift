@@ -9,15 +9,21 @@
 import Foundation
 import Contacts
 
+
 class DiningHallListParser: NSObject, XMLParserDelegate {
-    var halls: [DiningHall] = []
     private var childParser: DiningHallParser? = nil
     
-    func parse(parser: XMLParser) -> [DiningHall]? {
+    var halls: [DiningHall] = []
+    
+    /**
+     Handles consuming the `XMLParser` events to produce a list of all known `DiningHall`s.
+     
+     - parameter parser: an `XMLParser` containing the XML of a dininghall index document.
+     */
+    func parse(_ parser: XMLParser) -> [DiningHall]? {
         halls = []
         parser.delegate = self
         parser.parse()
-        
         return halls
     }
     
@@ -29,6 +35,7 @@ class DiningHallListParser: NSObject, XMLParserDelegate {
     }
 }
 
+
 class DiningHallParser: NSObject, XMLParserDelegate {
     weak var parentParser: DiningHallListParser?
     private var childParser: MenuParser? = nil
@@ -37,6 +44,27 @@ class DiningHallParser: NSObject, XMLParserDelegate {
     var state: ParseState = .base
     var contact: CNMutableContact = CNMutableContact()
     var address : CNMutablePostalAddress = CNMutablePostalAddress()
+    
+    /**
+     Parses a single `DiningHall`, to be used either on a single dininghall document, or delegated to from another parser.
+     
+     - parameter parser: an `XMLParser` containing a <dininghall> element.
+     */
+    func parse(_ parser: XMLParser) -> DiningHall? {
+        parser.delegate = self
+        parser.parse()
+        return element
+    }
+    
+    override init() {
+        self.parentParser = nil
+        super.init()
+    }
+    
+    init(parent: DiningHallListParser) {
+        self.parentParser = parent
+        super.init()
+    }
     
     enum ParseState {
         enum Address {
@@ -60,22 +88,6 @@ class DiningHallParser: NSObject, XMLParserDelegate {
         case name
         case contact(ParseState.Contact)
         case address(ParseState.Address)
-    }
-    
-    override init() {
-        self.parentParser = nil
-        super.init()
-    }
-    
-    init(parent: DiningHallListParser) {
-        self.parentParser = parent
-        super.init()
-    }
-    
-    func parse(parser: XMLParser) -> DiningHall? {
-        parser.delegate = self
-        parser.parse()
-        return element
     }
     
     func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String] = [:]) {
@@ -198,6 +210,7 @@ private class MenuParser: NSObject, XMLParserDelegate {
     }
 }
 
+
 private class MealParser: NSObject, XMLParserDelegate {
     weak var parentParser: MenuParser!
     private var childParser: CourseParser? = nil
@@ -244,6 +257,7 @@ private class MealParser: NSObject, XMLParserDelegate {
         }
     }
 }
+
 
 private class CourseParser: NSObject, XMLParserDelegate {
     weak var parentParser: MealParser!
@@ -296,6 +310,7 @@ private class CourseParser: NSObject, XMLParserDelegate {
         }
     }
 }
+
 
 private class MenuItemParser: NSObject, XMLParserDelegate {
     weak var parentParser: CourseParser!
