@@ -126,7 +126,8 @@ class DiningHallParser: NSObject, XMLParserDelegate {
     func parser(_ parser: XMLParser, foundCDATA CDATABlock: Data) {
         switch state {
         case .hours:
-            let str = String(data: CDATABlock, encoding: .utf8) ?? ""
+            var str = String(data: CDATABlock, encoding: .utf8) ?? ""
+            str = str.trimmingCharacters(in: .whitespaces)
             contact.note += str + "\n"
         default: break
         }
@@ -235,7 +236,7 @@ private class MealParser: NSObject, XMLParserDelegate {
         if previousTag == "name" {
             guard let name = String(data: CDATABlock, encoding: .utf8)
                 else { return }
-            self.name = name
+            self.name = name.trimmingCharacters(in: .whitespacesAndNewlines)
         }
     }
     
@@ -291,9 +292,11 @@ private class CourseParser: NSObject, XMLParserDelegate {
         }
     }
     
-    func parser(_ parser: XMLParser, foundCharacters string: String) {
+    func parser(_ parser: XMLParser, foundCDATA CDATABlock: Data) {
         if state == .name {
-            courseName = string
+            guard let name = String(data: CDATABlock, encoding: .utf8)
+                else { return }
+            courseName = name.trimmingCharacters(in: .whitespacesAndNewlines)
         }
     }
     
@@ -377,7 +380,7 @@ private class MenuItemParser: NSObject, XMLParserDelegate {
                 default:
                     print(previousTag)
                     value = nil
-                    unit = Unit()
+                    unit = Unit(symbol: "")
                 }
             } else if string.contains("kcal") {
                 value = Double(string.replacingOccurrences(of: "kcal", with: ""))
@@ -387,7 +390,7 @@ private class MenuItemParser: NSObject, XMLParserDelegate {
                 unit = Unit(symbol: "%")
             } else {
                 value = Double(string)
-                unit = Unit()
+                unit = Unit(symbol: "")
             }
             
             if let value = value {
