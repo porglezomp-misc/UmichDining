@@ -8,10 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-//! Project version number for umich-dining.
+//! Project version number for UmichDining.
 FOUNDATION_EXPORT double UmichDiningVersionNumber;
 
-//! Project version string for umich-dining.
+//! Project version string for UmichDining.
 FOUNDATION_EXPORT const unsigned char UmichDiningVersionString[];
 
 // In this header, you should import all the public headers of your framework using statements like #import <UmichDining/PublicHeader.h>

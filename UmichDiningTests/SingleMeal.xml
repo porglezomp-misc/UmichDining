@@ -1,0 +1,55 @@
+<dininghall>
+    <type>B</type>
+    <name>Twigs at Oxford</name>
+    <hours><![CDATA[ Monday-Friday ]]></hours>
+    <hours><![CDATA[ Breakfast: 7:00am-10:00am ]]></hours>
+    <address>
+        <address1></address1>
+        <address2/>
+        <city>Ann Arbor</city>
+        <state>MI</state>
+        <postalcode>48109</postalcode>
+    </address>
+    <contact>
+        <phone>734-763-7200</phone>
+        <email>dining-twigsatoxford@umich.edu</email>
+    </contact>
+    <menu>
+        <date>Thursday, December 1</date>
+        <meal>
+            <name>
+                <![CDATA[ BREAKFAST ]]>
+            </name>
+            <course>
+                <name>
+                    <![CDATA[ Hot Cereal ]]>
+                </name>
+                <menuitem>
+                    <name><![CDATA[ Blueberry Oatmeal ]]></name>
+                    <trait>
+                        <vegetarian>vegetarian</vegetarian>
+                    </trait>
+                    <serving_size>Cups</serving_size>
+                    <portion_size>254</portion_size>
+                    <allergens>
+                        <milk>milk</milk>
+                        <oats>oats</oats>
+                    </allergens>
+                    <nutrition>
+                        <fat>12gm</fat>
+                        <kj>111</kj>
+                        <kcal>285kcal</kcal>
+                        <b12>0mcg</b12>
+                        <vtaiu>390iu</vtaiu>
+                        <sugar>15gm</sugar>
+                        <na>66mg</na>
+                        <cho_p>13</cho_p>
+                        <kcal_p>14</kcal_p>
+                        <sugar_p>30</sugar_p>
+                        <!-- other elements omitted because way too many… -->
+                    </nutrition>
+                </menuitem>
+            </course>
+        </meal>
+    </menu>
+</dininghall>

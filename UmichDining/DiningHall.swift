@@ -26,7 +26,11 @@ public struct DiningHalls {
 private let baseUrl: URL = URL(string: "http://www.housing.umich.edu/files/helper_files/js/menu2xml.php")!
 
 
-class DiningHall: CustomDebugStringConvertible {
+func ==(lhs: DiningHall, rhs: DiningHall) -> Bool {
+    return lhs.name == rhs.name && lhs.menu == rhs.menu // && lhs.contact == rhs.contact
+}
+
+class DiningHall: CustomDebugStringConvertible, Equatable {
     var name: String
     var menu: Menu = Menu()
     var contact: CNContact? = nil
