@@ -8,30 +8,45 @@
 
 import Foundation
 
-class Menu {
+class Menu: CustomDebugStringConvertible {
     var meals: [Meal] = []
+    
+    public var debugDescription: String {
+        return "Menu(meals: \(meals.debugDescription))"
+    }
 }
 
-class Meal {
+class Meal: CustomDebugStringConvertible {
+    var name: String
     var items: [MenuItem] = []
     var courses: [String: [MenuItem]] = [:]
+    var notice: String? = nil
     
-    init(courses: [String: [MenuItem]]) {
+    init(name: String, courses: [String: [MenuItem]]) {
+        self.name = name
         self.courses = courses
         self.items = courses.flatMap { $0.value }
+    }
+    
+    public var debugDescription: String {
+        return "Meal(name: \(name.debugDescription), items: \(items.debugDescription), courses: \(courses.debugDescription), notice: \(notice.debugDescription))"
     }
 }
 
 // TODO: Support multiple courses?
-public class MenuItem {
+public class MenuItem: CustomDebugStringConvertible {
     var name: String
-    // TODO: Traits
-    // TODO: Allergens
+    var traits: [String] = []
+    var allergens: [String] = []
     // TODO: Serving size
     // TODO: What is portion size???
     var nutritionInfo: [String: Measurement] = [:]
     
     init(name: String) {
         self.name = name
+    }
+    
+    public var debugDescription: String {
+        return "MenuItem(name: \(name.debugDescription), traits: \(traits.debugDescription), allergens: \(allergens.debugDescription), nutritionInfo: \(nutritionInfo.debugDescription))"
     }
 }

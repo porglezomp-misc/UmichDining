@@ -22,15 +22,18 @@ let westQuad = DiningHall("West Quad Dining Hall")
 
 private let baseUrl: URL = URL(string: "http://www.housing.umich.edu/files/helper_files/js/menu2xml.php")!
 
-class DiningHall {
+class DiningHall: CustomDebugStringConvertible {
     var name: String
     var menu: Menu = Menu()
     var contact: CNContact? = nil
-    
-    // TODO: Addresses / lat-lon
+    // TODO: lat-lon in the contact?
     
     init(_ name: String) {
         self.name = name
+    }
+    
+    public var debugDescription: String {
+        return "DiningHall(name: \(name), menu: \(menu), contact: \(contact))"
     }
 
     func fetchData(date: Date? = nil, completion: @escaping (DiningHall) -> ()) {
@@ -54,7 +57,6 @@ class DiningHall {
 
             urlString += "&date=\(date)"
         }
-        print(urlString)
         guard let url = URL(string: urlString)
             else { return nil }
         guard let data = try? Data(contentsOf: url)
