@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:umich-dining.xcodeproj">
+      location = "self:/Users/OstensiblyOwen/development/iOS/UmichDining/UmichDining.xcodeproj">
    </FileRef>
 </Workspace>
