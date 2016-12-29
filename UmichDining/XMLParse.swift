@@ -1,6 +1,6 @@
 //
 //  XMLParse.swift
-//  umich-dining
+//  UmichDining
 //
 //  Created by Caleb Jones on 12/27/16.
 //  Copyright © 2016 Caleb Jones. All rights reserved.

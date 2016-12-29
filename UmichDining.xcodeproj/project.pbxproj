@@ -7,9 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3C8E7B9B1E12109300F067AD /* umich_dining.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C8E7B911E12109300F067AD /* umich_dining.framework */; };
-		3C8E7BA01E12109300F067AD /* umich_diningTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C8E7B9F1E12109300F067AD /* umich_diningTests.swift */; };
-		3C8E7BA21E12109300F067AD /* umich-dining.h in Headers */ = {isa = PBXBuildFile; fileRef = 3C8E7B941E12109300F067AD /* umich-dining.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3C8E7B9B1E12109300F067AD /* UmichDining.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C8E7B911E12109300F067AD /* UmichDining.framework */; };
+		3C8E7BA01E12109300F067AD /* UmichDiningTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C8E7B9F1E12109300F067AD /* UmichDiningTests.swift */; };
+		3C8E7BA21E12109300F067AD /* UmichDining.h in Headers */ = {isa = PBXBuildFile; fileRef = 3C8E7B941E12109300F067AD /* UmichDining.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9DF3DC511E12E8230067B246 /* DiningHall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DF3DC4E1E12E8230067B246 /* DiningHall.swift */; };
 		9DF3DC521E12E8230067B246 /* Menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DF3DC4F1E12E8230067B246 /* Menu.swift */; };
 		9DF3DC531E12E8230067B246 /* XMLParse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DF3DC501E12E8230067B246 /* XMLParse.swift */; };
@@ -21,16 +21,16 @@
 			containerPortal = 3C8E7B881E12109300F067AD /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 3C8E7B901E12109300F067AD;
-			remoteInfo = "umich-dining";
+			remoteInfo = "UmichDining";
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		3C8E7B911E12109300F067AD /* umich_dining.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = umich_dining.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		3C8E7B941E12109300F067AD /* umich-dining.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "umich-dining.h"; sourceTree = "<group>"; };
+		3C8E7B911E12109300F067AD /* UmichDining.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = UmichDining.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3C8E7B941E12109300F067AD /* UmichDining.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UmichDining.h"; sourceTree = "<group>"; };
 		3C8E7B951E12109300F067AD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3C8E7B9A1E12109300F067AD /* UmichDiningTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UmichDiningTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		3C8E7B9F1E12109300F067AD /* umich_diningTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = umich_diningTests.swift; sourceTree = "<group>"; };
+		3C8E7B9F1E12109300F067AD /* UmichDiningTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UmichDiningTests.swift; sourceTree = "<group>"; };
 		3C8E7BA11E12109300F067AD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9DF3DC4E1E12E8230067B246 /* DiningHall.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiningHall.swift; sourceTree = "<group>"; };
 		9DF3DC4F1E12E8230067B246 /* Menu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Menu.swift; sourceTree = "<group>"; };
@@ -49,7 +49,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3C8E7B9B1E12109300F067AD /* umich_dining.framework in Frameworks */,
+				3C8E7B9B1E12109300F067AD /* UmichDining.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -68,7 +68,7 @@
 		3C8E7B921E12109300F067AD /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				3C8E7B911E12109300F067AD /* umich_dining.framework */,
+				3C8E7B911E12109300F067AD /* UmichDining.framework */,
 				3C8E7B9A1E12109300F067AD /* UmichDiningTests.xctest */,
 			);
 			name = Products;
@@ -77,7 +77,8 @@
 		3C8E7B931E12109300F067AD /* UmichDining */ = {
 			isa = PBXGroup;
 			children = (
-				3C8E7B941E12109300F067AD /* umich-dining.h */,
+				3C8E7B941E12109300F067AD /* 
+				UmichDining.h */,
 				3C8E7B951E12109300F067AD /* Info.plist */,
 				9DF3DC4E1E12E8230067B246 /* DiningHall.swift */,
 				9DF3DC4F1E12E8230067B246 /* Menu.swift */,
@@ -89,7 +90,7 @@
 		3C8E7B9E1E12109300F067AD /* UmichDiningTests */ = {
 			isa = PBXGroup;
 			children = (
-				3C8E7B9F1E12109300F067AD /* umich_diningTests.swift */,
+				3C8E7B9F1E12109300F067AD /* UmichDiningTests.swift */,
 				3C8E7BA11E12109300F067AD /* Info.plist */,
 			);
 			path = UmichDiningTests;
@@ -102,7 +103,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3C8E7BA21E12109300F067AD /* umich-dining.h in Headers */,
+				3C8E7BA21E12109300F067AD /* UmichDining.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -123,8 +124,8 @@
 			dependencies = (
 			);
 			name = UmichDining;
-			productName = "umich-dining";
-			productReference = 3C8E7B911E12109300F067AD /* umich_dining.framework */;
+			productName = "UmichDining";
+			productReference = 3C8E7B911E12109300F067AD /* UmichDining.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		3C8E7B991E12109300F067AD /* UmichDiningTests */ = {
@@ -141,7 +142,7 @@
 				3C8E7B9D1E12109300F067AD /* PBXTargetDependency */,
 			);
 			name = UmichDiningTests;
-			productName = "umich-diningTests";
+			productName = "UmichDiningTests";
 			productReference = 3C8E7B9A1E12109300F067AD /* UmichDiningTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
@@ -217,7 +218,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3C8E7BA01E12109300F067AD /* umich_diningTests.swift in Sources */,
+				3C8E7BA01E12109300F067AD /* UmichDiningTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -347,7 +348,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = net.calebjones.UmichDining;
-				PRODUCT_NAME = umich_dining;
+				PRODUCT_NAME = UmichDining;
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
@@ -368,7 +369,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = net.calebjones.UmichDining;
-				PRODUCT_NAME = umich_dining;
+				PRODUCT_NAME = UmichDining;
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 3.0;
 			};

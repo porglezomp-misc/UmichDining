@@ -1,13 +1,13 @@
 //
-//  umich_diningTests.swift
-//  umich-diningTests
+//  UmichDiningTests.swift
+//  UmichDiningTests
 //
 //  Created by Caleb Jones on 12/26/16.
 //  Copyright © 2016 Caleb Jones. All rights reserved.
 //
 
 import XCTest
-@testable import umich_dining
+@testable import UmichDining
 
 class umich_diningTests: XCTestCase {
     
