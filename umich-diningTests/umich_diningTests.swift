@@ -35,6 +35,12 @@ class umich_diningTests: XCTestCase {
         }
         if let halls = DiningHall.blockingFetchDiningHalls(){
             print ("number of dining halls: \(halls.count)")
+            var st = ""
+            for hall in halls{
+                 st += hall.name + "\n"
+            }
+            print(st)
+            
         }
     }
     

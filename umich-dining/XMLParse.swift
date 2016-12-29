@@ -158,6 +158,8 @@ class DiningHallParser: NSObject, XMLParserDelegate {
                 parent.halls.append(element)
             }
         case "address":
+            address.isoCountryCode = "US"
+            address.country = "United States"
             contact.postalAddresses = [CNLabeledValue(label:CNLabelWork, value:address)]
             state = .base
         case "hours", "type", "name", "contact":
