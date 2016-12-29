@@ -10,7 +10,7 @@ import Foundation
 import CoreLocation
 import Contacts
 
-let barbour = DiningHall("Barbour Dining Hall")
+let barbour = DiningHall("Pantry At Barbour")
 let bursley = DiningHall("Bursley Dining Hall")
 let eastQuad = DiningHall("East Quad Dining Hall")
 let mosherJordan = DiningHall("Mosher Jordan Dining Hall")

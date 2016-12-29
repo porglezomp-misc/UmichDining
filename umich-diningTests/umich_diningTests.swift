@@ -33,6 +33,9 @@ class umich_diningTests: XCTestCase {
         } else {
             print("NONE!")
         }
+        if let halls = DiningHall.blockingFetchDiningHalls(){
+            print ("number of dining halls: \(halls.count)")
+        }
     }
     
     func testPerformanceExample() {

@@ -11,17 +11,20 @@ import Contacts
 
 class DiningHallListParser: NSObject, XMLParserDelegate {
     var halls: [DiningHall] = []
+    private var childParser: DiningHallParser? = nil
     
-    func parse(parser: XMLParser) -> [DiningHall] {
+    func parse(parser: XMLParser) -> [DiningHall]? {
         halls = []
         parser.delegate = self
         parser.parse()
+        
         return halls
     }
     
     func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String] = [:]) {
         if elementName == "dininghall" {
-            parser.delegate = DiningHallParser(parent: self)
+            childParser = DiningHallParser(parent: self)
+            parser.delegate = childParser
         }
     }
 }
