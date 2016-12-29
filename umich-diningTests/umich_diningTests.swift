@@ -28,17 +28,10 @@ class umich_diningTests: XCTestCase {
         format.dateFormat = "yyyy-MM-dd"
         let date = format.date(from: "2016-12-20")
         if let hall = bursley.blockingFetchData(date: date) {
-            print("\(hall.menu.meals)")
-            print("\(hall.contact)")
+            debugPrint(hall)
+//            debugPrint(hall.contact)
         } else {
             print("NONE!")
-        }
-    }
-    
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
         }
     }
     
