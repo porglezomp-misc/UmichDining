@@ -24,12 +24,23 @@ class umich_diningTests: XCTestCase {
     func testExample() {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
-    
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
+        let format = DateFormatter()
+        format.dateFormat = "yyyy-MM-dd"
+        let date = format.date(from: "2016-12-20")
+        if let hall = bursley.blockingFetchData(date: date) {
+            debugPrint(hall)
+//            debugPrint(hall.contact)
+        } else {
+            print("NONE!")
+        }
+        if let halls = DiningHall.blockingFetchDiningHalls(){
+            print ("number of dining halls: \(halls.count)")
+            var st = ""
+            for hall in halls{
+                 st += hall.name + "\n"
+            }
+            print(st)
+            
         }
     }
     
