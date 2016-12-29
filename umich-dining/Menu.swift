@@ -8,6 +8,7 @@
 
 import Foundation
 
+
 class Menu: CustomDebugStringConvertible {
     var meals: [Meal] = []
     
@@ -15,6 +16,7 @@ class Menu: CustomDebugStringConvertible {
         return "Menu(meals: \(meals.debugDescription))"
     }
 }
+
 
 class Meal: CustomDebugStringConvertible {
     var name: String
@@ -33,7 +35,7 @@ class Meal: CustomDebugStringConvertible {
     }
 }
 
-// TODO: Support multiple courses?
+
 public class MenuItem: CustomDebugStringConvertible {
     var name: String
     var traits: [String] = []

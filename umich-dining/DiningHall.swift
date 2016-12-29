@@ -10,17 +10,21 @@ import Foundation
 import CoreLocation
 import Contacts
 
-let barbour = DiningHall("Pantry At Barbour")
-let bursley = DiningHall("Bursley Dining Hall")
-let eastQuad = DiningHall("East Quad Dining Hall")
-let mosherJordan = DiningHall("Mosher Jordan Dining Hall")
-let markley = DiningHall("Markley Dining Hall")
-let northQuad = DiningHall("North Quad Dining Hall")
-let southQuad = DiningHall("South Quad Dining Hall")
-let twigs = DiningHall("Twigs at Oxford")
-let westQuad = DiningHall("West Quad Dining Hall")
+
+public struct DiningHalls {
+    static let barbour = DiningHall("Pantry At Barbour")
+    static let bursley = DiningHall("Bursley Dining Hall")
+    static let eastQuad = DiningHall("East Quad Dining Hall")
+    static let mosherJordan = DiningHall("Mosher Jordan Dining Hall")
+    static let markley = DiningHall("Markley Dining Hall")
+    static let northQuad = DiningHall("North Quad Dining Hall")
+    static let southQuad = DiningHall("South Quad Dining Hall")
+    static let twigs = DiningHall("Twigs at Oxford")
+    static let westQuad = DiningHall("West Quad Dining Hall")
+}
 
 private let baseUrl: URL = URL(string: "http://www.housing.umich.edu/files/helper_files/js/menu2xml.php")!
+
 
 class DiningHall: CustomDebugStringConvertible {
     var name: String
@@ -63,7 +67,7 @@ class DiningHall: CustomDebugStringConvertible {
             else { return nil }
         
         let xml = XMLParser(data: data)
-        guard let obj = DiningHallParser().parse(parser: xml)
+        guard let obj = DiningHallParser().parse(xml)
             else { return nil }
 
         self.name = obj.name
@@ -85,6 +89,6 @@ class DiningHall: CustomDebugStringConvertible {
         guard let data = try? Data(contentsOf: baseUrl)
             else { return nil }
         let xml = XMLParser(data: data)
-        return DiningHallListParser().parse(parser: xml)
+        return DiningHallListParser().parse(xml)
     }
 }
